@@ -18,7 +18,7 @@ axle_track = 175
 distance2 = 1000
 distance1 = 2000
 
-angle = 100
+angle = 80
 correction_angle=5
 base = DriveBase(left_motor, right_motor, wheel_diameter, axle_track)
 
@@ -26,6 +26,13 @@ path_lenght=0.0
 color_sensor = ColorSensor(Port.S1)
 ultrasonic_sensor=UltrasonicSensor(Port.S4)
 front_distance=1000.0
+
+def average_ultrasonic_distance(sensor, samples=10, delay_ms=50):
+    total = 0.0
+    for _ in range(samples):
+        total += sensor.distance()
+        wait(delay_ms)
+    return total / samples
 
 left_motor = Motor(Port.C)
 right_motor = Motor(Port.B)
@@ -68,17 +75,16 @@ while Button.CENTER not in ev3.buttons.pressed():
 
 ev3.speaker.beep()  
 
-while True:
+while average_ultrasonic_distance(ultrasonic_sensor) > 200.0:
     deviation = color_sensor.reflection() - threshold
 
     turn_rate = PROPORTIONAL_GAIN * deviation
 
-    if ultrasonic_sensor.distance() > 200.0:
-        base.drive(DRIVE_SPEED, turn_rate)
-    else:
-        base.drive(0, 0)
+    base.drive(DRIVE_SPEED, turn_rate)
 
     wait(10)
+
+base.turn(-angle)
 
 
 #while True:
