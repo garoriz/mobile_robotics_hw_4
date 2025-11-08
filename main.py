@@ -86,6 +86,19 @@ while average_ultrasonic_distance(ultrasonic_sensor) > 200.0:
 
 base.turn(-angle)
 
+while average_ultrasonic_distance(ultrasonic_sensor) > 200.0:
+    deviation = color_sensor.reflection() - threshold
+
+    turn_rate = PROPORTIONAL_GAIN * deviation
+
+    base.drive(DRIVE_SPEED, turn_rate)
+
+    wait(10)
+
+while color_sensor.reflection() < black - 5 and color_sensor.reflection() > black + 5:
+
+    wait(10)
+
 
 #while True:
 #    if color_sensor.reflection() < 10:
