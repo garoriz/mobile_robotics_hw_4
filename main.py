@@ -1,11 +1,10 @@
 #!/usr/bin/env pybricks-micropython
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import Motor, UltrasonicSensor
-from pybricks.parameters import Port, Direction, Button
+from pybricks.parameters import Port, Direction, Button, Color
 from pybricks.robotics import DriveBase
 from pybricks.ev3devices import ColorSensor
 from pybricks.tools import wait
-
 
 ev3 = EV3Brick()
  
@@ -86,16 +85,8 @@ while average_ultrasonic_distance(ultrasonic_sensor) > 200.0:
 
 base.turn(-angle)
 
-while average_ultrasonic_distance(ultrasonic_sensor) > 200.0:
-    deviation = color_sensor.reflection() - threshold
-
-    turn_rate = PROPORTIONAL_GAIN * deviation
-
-    base.drive(DRIVE_SPEED, turn_rate)
-
-    wait(10)
-
-while color_sensor.reflection() < black - 5 and color_sensor.reflection() > black + 5:
+while color_sensor.color() != Color.BLACK:
+    base.straight(-(10 * 10))
 
     wait(10)
 
