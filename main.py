@@ -74,19 +74,21 @@ while Button.CENTER not in ev3.buttons.pressed():
 
 ev3.speaker.beep()  
 
-while average_ultrasonic_distance(ultrasonic_sensor) > 200.0:
-    deviation = color_sensor.reflection() - threshold
+#while average_ultrasonic_distance(ultrasonic_sensor) > 200.0:
+#    deviation = color_sensor.reflection() - threshold
 
-    turn_rate = PROPORTIONAL_GAIN * deviation
+#    turn_rate = PROPORTIONAL_GAIN * deviation
 
-    base.drive(DRIVE_SPEED, turn_rate)
+#    base.drive(DRIVE_SPEED, turn_rate)
 
-    wait(10)
+#    wait(10)
 
-base.turn(-angle)
+#base.turn(-angle)
 
 while color_sensor.color() != Color.BLACK:
     base.straight(-(10 * 10))
+
+    base.turn(angle)
 
     wait(10)
 
