@@ -90,6 +90,8 @@ while color_sensor.color() != Color.BLACK:
 
     base.turn(angle)
 
+    distance = average_ultrasonic_distance(ultrasonic_sensor)
+
     wait(10)
 
 
