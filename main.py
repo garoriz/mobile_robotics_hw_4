@@ -100,6 +100,8 @@ while color_sensor.color() != Color.BLACK:
 
     wait(10)
 
+ev3.speaker.beep()
+
 
 #while True:
 #    if color_sensor.reflection() < 10:
