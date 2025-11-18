@@ -92,6 +92,8 @@ def turn_if_needed(distance):
 while color_sensor.color() != Color.BLACK:
     base.straight(10 * 10)
 
+    distance = average_ultrasonic_distance(ultrasonic_sensor)
+
     base.turn(angle)
 
     distance = average_ultrasonic_distance(ultrasonic_sensor)
