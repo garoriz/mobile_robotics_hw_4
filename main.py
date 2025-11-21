@@ -85,75 +85,23 @@ while average_ultrasonic_distance(ultrasonic_sensor) > 250.0:
 
 base.turn(-angle)
 
-def turn_if_needed(distance):
-    if distance < 150.0:
-        base.turn(-angle)
-
 while color_sensor.color() != Color.BLACK:
-    base.straight(10 * 10)
-
-    distance = average_ultrasonic_distance(ultrasonic_sensor)
+    base.straight(25 * 10)
 
     base.turn(angle)
 
     distance = average_ultrasonic_distance(ultrasonic_sensor)
 
-    turn_if_needed(distance)
+    if distance < 150.0:
+        base.turn(-angle)
+
+        distance = average_ultrasonic_distance(ultrasonic_sensor)
+
+        if distance < 150.0:
+            base.turn(-angle)
+    else:
+        continue
 
     wait(10)
 
 ev3.speaker.beep()
-
-
-#while True:
-#    if color_sensor.reflection() < 10:
-#        base.turn(-correction_angle)
-#    elif color_sensor.reflection() > 10:
-#        base.turn(correction_angle)
-#    else:
-#        base.straight(200)
-#base.turn(angle)
-#front_distance=ultrasonic_sensor.distance()
-#hand_motor.run_angle(100, -90)
-#while color_sensor.reflection() > 10:
-#    wall_distance=ultrasonic_sensor.distance()
-#
-#    print(wall_distance)
-#
-#    print(path_lenght)
-#    if front_distance>200.0:
-#        if wall_distance>170.0 and wall_distance<230.0 or front_distance>600:
-#            base.straight(300)
-#            path_lenght+=300
-#            
-#        elif wall_distance<170.0:
-#            base.turn(correction_angle)
-#        elif wall_distance>300.0:
-#            base.straight(200)
-#            base.turn(-angle)
-#            hand_motor.run_angle(100, 90)
-#            front_distance=ultrasonic_sensor.distance()
-#            hand_motor.run_angle(100, -90)
-#            path_lenght=0
-#        elif wall_distance>230.0:
-#            base.turn(-correction_angle)
-#        else:
-#            base.straight(50)
-#            path_lenght+=50
-#    elif front_distance<=200.0:
-#        base.turn(angle)
-#        hand_motor.run_angle(100, 90)
-#        front_distance=ultrasonic_sensor.distance()
-#        hand_motor.run_angle(100, -90)
-#        path_lenght=0
-#    else:
-#        base.straight(50)
-#        path_lenght+=50
-#
-#    front_distance=front_distance-path_lenght
-#
-#
-#
-#
-## Write your program here.
-#ev3.speaker.beep()
