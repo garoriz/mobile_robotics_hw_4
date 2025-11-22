@@ -86,7 +86,16 @@ while average_ultrasonic_distance(ultrasonic_sensor) > 250.0:
 base.turn(-angle)
 
 while color_sensor.color() != Color.BLACK:
-    base.straight(25 * 10)
+    exit_outer = False
+
+    for n in range(25):
+        base.straight(10)
+        if color_sensor.color() == Color.BLACK:
+            exit_outer = True
+            break
+
+    if exit_outer:
+        break
 
     base.turn(angle)
 
